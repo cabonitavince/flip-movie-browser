@@ -53,6 +53,8 @@ handling events and emitting states. Dependency injection is managed using `get_
   BLoC. [Official documentation](https://pub.dev/packages/flutter_bloc)
 - **`equatable: ^2.0.7`**: For simplifying equality checks in BLoC states and
   events. [Official documentation](https://pub.dev/packages/equatable)
+- **`logger: ^2.5.0`**:  For logging in the
+  application. [Official documentation](https://pub.dev/packages/logger)
 
 ## Code Generation
 

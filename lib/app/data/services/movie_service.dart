@@ -7,6 +7,7 @@ import 'package:movie_browser/app/domain/exceptions/impl_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/invalid_api_response_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/network_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/service_exception.dart';
+import 'package:movie_browser/utils/app_logger.dart';
 import 'package:movie_browser/utils/env_config.dart';
 
 class MovieService {
@@ -40,15 +41,19 @@ class MovieService {
 
           final movies =
               results.map((movieJson) => Movie.fromJson(movieJson)).toList();
+          AppLogger.i('Fetched ${movies.length} movies',
+              stackTrace: StackTrace.current);
           return movies;
         } else {
           throw InvalidApiResponseException('Invalid API response format');
         }
       } else {
-        throw ServiceException(
-          'Error fetching movies: ${response.reasonPhrase}',
-          statusCode: response.statusCode,
-        );
+        AppLogger.e(
+            'Error fetching movies: ${response.reasonPhrase} '
+            '(${response.statusCode})',
+            stackTrace: StackTrace.current);
+        throw ServiceException(response.reasonPhrase ?? 'Unknown error',
+            statusCode: response.statusCode);
       }
     } on SocketException {
       throw NetworkException('No internet connection');
