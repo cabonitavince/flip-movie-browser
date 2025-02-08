@@ -1,0 +1,22 @@
+import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
+import 'package:movie_browser/app/data/services/movie_service.dart';
+import 'package:movie_browser/app/domain/repositories/movie_repository_impl.dart';
+import 'package:movie_browser/app/domain/repositories/movie_respository.dart';
+
+final serviceLocator = GetIt.instance;
+
+void setupServiceLocator() {
+  // http client
+  serviceLocator.registerLazySingleton<http.Client>(() => http.Client());
+
+  // services
+  serviceLocator.registerLazySingleton<MovieService>(
+    () => MovieService(httpClient: serviceLocator<http.Client>()),
+  );
+
+  // repositories
+  serviceLocator.registerLazySingleton<MovieRepository>(
+    () => MovieRepositoryImpl(serviceLocator<MovieService>()),
+  );
+}

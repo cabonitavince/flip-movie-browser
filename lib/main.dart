@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movie_browser/app/presentation/pages/home_page.dart';
+import 'package:movie_browser/injection_container.dart';
 
 Future<void> main() async {
+  setupServiceLocator();
   await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }

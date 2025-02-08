@@ -47,3 +47,9 @@ app.*.map.json
 
 # Security
 *.env
+
+# Generated code for freezed
+**/*.freezed.dart
+
+# Generated code for json_serializable
+**/*.g.dart

@@ -29,3 +29,22 @@ The BLoC pattern is used for state management in the UI layer. Each feature has 
 handling events and emitting states. Dependency injection is managed using `get_it`.
 
 ## Building and Running
+
+## Dependencies
+
+- **`flutter_dotenv: ^5.2.1`**: Loads environment variables from a `.env`
+  file. [Official documentation](https://pub.dev/packages/flutter_dotenv)
+- **`freezed_annotation`**: Annotations for code generation of immutable
+  classes. [Official documentation](https://pub.dev/packages/freezed_annotation)
+- **`json_annotation`**: Annotations for JSON serialization/deserialization code
+  generation. [Official documentation](https://pub.dev/packages/json_annotation)
+- **`http: ^1.3.0`**: For making HTTP
+  requests. [Official documentation](https://pub.dev/packages/http)
+- **`build_runner: ^2.4.14`**: Runs code generation
+  tools. [Official documentation](https://pub.dev/packages/build_runner)
+- **`freezed: ^2.5.8`**: Generates immutable
+  classes. [Official documentation](https://pub.dev/packages/freezed)
+- **`json_serializable: ^6.9.3`**: Generates JSON serialization/deserialization
+  code. [Official documentation](https://pub.dev/packages/json_serializable)
+- **`get_it: ^7.6.0`**: A service locator for dependency
+  injection. [Official documentation](https://pub.dev/packages/get_it)
