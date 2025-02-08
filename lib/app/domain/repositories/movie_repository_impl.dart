@@ -8,7 +8,7 @@ class MovieRepositoryImpl implements MovieRepository {
   const MovieRepositoryImpl(this._movieService);
 
   @override
-  Future<Movie> getMovie() {
+  Future<Movie> getPopularMovies() {
     // TODO: implement getMovie
     throw UnimplementedError();
   }

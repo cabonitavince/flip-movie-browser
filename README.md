@@ -9,6 +9,7 @@
 - [Code Generation](#code-generation)
 - [Trade-offs](#trade-offs)
 - [Testing](#testing)
+- [API Source](#api-source)
 
 ## Introduction
 
@@ -48,3 +49,17 @@ handling events and emitting states. Dependency injection is managed using `get_
   code. [Official documentation](https://pub.dev/packages/json_serializable)
 - **`get_it: ^7.6.0`**: A service locator for dependency
   injection. [Official documentation](https://pub.dev/packages/get_it)
+- **`flutter_bloc: ^9.0.0`**: For state management with
+  BLoC. [Official documentation](https://pub.dev/packages/flutter_bloc)
+- **`equatable: ^2.0.7`**: For simplifying equality checks in BLoC states and
+  events. [Official documentation](https://pub.dev/packages/equatable)
+
+## Code Generation
+
+## Trade-offs
+
+## Testing
+
+## API Source
+
+This app uses the [TMDB API](https://www.themoviedb.org/) to fetch movie data.
