@@ -1,5 +1,5 @@
 import 'package:movie_browser/app/domain/entities/movie.dart';
 
 abstract class MovieRepository {
-  Future<Movie> getPopularMovies();
+  Future<List<Movie>> getPopularMovies({String language, int page});
 }

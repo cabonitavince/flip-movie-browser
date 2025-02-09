@@ -7,7 +7,6 @@ import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:movie_browser/app/data/services/movie_service.dart';
-import 'package:movie_browser/app/domain/entities/movie.dart';
 import 'package:movie_browser/app/domain/exceptions/network_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/service_exception.dart';
 import 'package:movie_browser/utils/env_config.dart';
@@ -43,8 +42,6 @@ void main() {
       'vote_count': 1000
     };
 
-    final tMovie = Movie.fromJson(tMovieJson);
-
     // success case
     test('should return list of movies when API call is successful', () async {
       // Arrange
@@ -65,7 +62,7 @@ void main() {
         ),
       ).thenAnswer((_) async => http.Response(
           json.encode({
-            'results': [tMovie.toJson()],
+            'results': [tMovieJson],
           }),
           200));
 
@@ -73,9 +70,10 @@ void main() {
       final result = await movieService.getPopularMovies();
 
       // Assert
-      expect(result, isA<List<Movie>>());
-      expect(result.length, 1);
-      expect(result.first, tMovie);
+      expect(result, isA<Map<String, dynamic>>());
+      expect(result['results'], isA<List<dynamic>>());
+      expect(result['results'].length, 1);
+      expect(result['results'].first, tMovieJson);
 
       verify(
         mockHttpClient.get(
