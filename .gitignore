@@ -53,3 +53,6 @@ app.*.map.json
 
 # Generated code for json_serializable
 **/*.g.dart
+
+# Generated code for flutter mock tests
+*.mocks.dart

@@ -55,6 +55,8 @@ handling events and emitting states. Dependency injection is managed using `get_
   events. [Official documentation](https://pub.dev/packages/equatable)
 - **`logger: ^2.5.0`**:  For logging in the
   application. [Official documentation](https://pub.dev/packages/logger)
+- **`mockito: ^5.0.0`**: For creating mocks in unit
+  tests. [Official documentation](https://pub.dev/packages/mockito)
 
 ## Code Generation
 

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:movie_browser/app/domain/entities/movie.dart';
-import 'package:movie_browser/app/domain/exceptions/impl_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/invalid_api_response_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/network_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/service_exception.dart';
@@ -30,7 +29,7 @@ class MovieService {
     };
 
     try {
-      final response = await http.get(uri, headers: headers);
+      final response = await httpClient.get(uri, headers: headers);
 
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
@@ -57,8 +56,12 @@ class MovieService {
       }
     } on SocketException {
       throw NetworkException('No internet connection');
+    } on ServiceException {
+      rethrow;
+    } on InvalidApiResponseException {
+      rethrow;
     } catch (e) {
-      throw ImplException('An unexpected error occurred: $e');
+      throw Exception('An unexpected error occurred: $e');
     }
   }
 }
