@@ -21,22 +21,7 @@ void main() {
   });
 
   group('MovieRepositoryImpl - getPopularMovies', () {
-    final tMovieJson = {
-      'adult': false,
-      'backdrop_path': '/test_backdrop.jpg',
-      'genre_ids': [1, 2, 3],
-      'id': 1,
-      'original_language': 'en',
-      'original_title': 'Test Movie',
-      'overview': 'Test overview',
-      'popularity': 10.0,
-      'poster_path': '/test_poster.jpg',
-      'release_date': '2024-01-01',
-      'title': 'Test Movie',
-      'video': false,
-      'vote_average': 7.5,
-      'vote_count': 100,
-    };
+    final tMovieJson = Movie.mock().toJson();
     final tMovie = Movie.fromJson(tMovieJson);
 
     test('should return list of movies when MovieService call is successful',

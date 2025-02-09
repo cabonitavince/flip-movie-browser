@@ -7,6 +7,7 @@ import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:movie_browser/app/data/services/movie_service.dart';
+import 'package:movie_browser/app/domain/entities/movie.dart';
 import 'package:movie_browser/app/domain/exceptions/network_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/service_exception.dart';
 import 'package:movie_browser/utils/env_config.dart';
@@ -25,22 +26,7 @@ void main() {
   });
 
   group('MovieService->getPopularMovies', () {
-    final tMovieJson = {
-      'adult': false,
-      'backdrop_path': '/test_backdrop.jpg',
-      'genre_ids': [28, 12, 14],
-      'id': 1,
-      'original_language': 'en',
-      'original_title': 'Test Movie Original',
-      'overview': 'Test Overview',
-      'popularity': 1000.0,
-      'poster_path': '/test.jpg',
-      'release_date': '2024-01-01',
-      'title': 'Test Movie',
-      'video': false,
-      'vote_average': 7.5,
-      'vote_count': 1000
-    };
+    final tMovieJson = Movie.mock().toJson();
 
     // success case
     test('should return list of movies when API call is successful', () async {
