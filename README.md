@@ -43,7 +43,7 @@ handling events and emitting states. Dependency injection is managed using `get_
   requests. [Official documentation](https://pub.dev/packages/http)
 - **`build_runner: ^2.4.14`**: Runs code generation
   tools. [Official documentation](https://pub.dev/packages/build_runner)
-- **`freezed: ^2.5.8`**: Generates immutable
+- **`freezed: ^3.0.0-0.0.dev`**: Generates immutable
   classes. [Official documentation](https://pub.dev/packages/freezed)
 - **`json_serializable: ^6.9.3`**: Generates JSON serialization/deserialization
   code. [Official documentation](https://pub.dev/packages/json_serializable)
@@ -57,6 +57,8 @@ handling events and emitting states. Dependency injection is managed using `get_
   application. [Official documentation](https://pub.dev/packages/logger)
 - **`mockito: ^5.0.0`**: For creating mocks in unit
   tests. [Official documentation](https://pub.dev/packages/mockito)
+- **`bloc_test: ^10.0.0`**: For testing
+  BLoCs. [Official documentation](https://pub.dev/packages/bloc_test)
 
 ## Code Generation
 
