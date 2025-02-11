@@ -4,12 +4,12 @@ import 'package:movie_browser/core/enum/state_enum.dart';
 
 class MovieListState extends Equatable {
   final StateEnum status;
-  final List<Movie>? movies;
+  final List<Movie> movies;
   final String? errorMessage;
 
   const MovieListState({
     required this.status,
-    this.movies,
+    this.movies = const [],
     this.errorMessage,
   });
 

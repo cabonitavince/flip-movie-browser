@@ -35,16 +35,12 @@ handling events and emitting states. Dependency injection is managed using `get_
 
 - **`flutter_dotenv: ^5.2.1`**: Loads environment variables from a `.env`
   file. [Official documentation](https://pub.dev/packages/flutter_dotenv)
-- **`freezed_annotation`**: Annotations for code generation of immutable
-  classes. [Official documentation](https://pub.dev/packages/freezed_annotation)
 - **`json_annotation`**: Annotations for JSON serialization/deserialization code
   generation. [Official documentation](https://pub.dev/packages/json_annotation)
 - **`http: ^1.3.0`**: For making HTTP
   requests. [Official documentation](https://pub.dev/packages/http)
 - **`build_runner: ^2.4.14`**: Runs code generation
   tools. [Official documentation](https://pub.dev/packages/build_runner)
-- **`freezed: ^3.0.0-0.0.dev`**: Generates immutable
-  classes. [Official documentation](https://pub.dev/packages/freezed)
 - **`json_serializable: ^6.9.3`**: Generates JSON serialization/deserialization
   code. [Official documentation](https://pub.dev/packages/json_serializable)
 - **`get_it: ^7.6.0`**: A service locator for dependency
@@ -63,6 +59,14 @@ handling events and emitting states. Dependency injection is managed using `get_
 ## Code Generation
 
 ## Trade-offs
+
+This project initially used Freezed for model generation. However, due to incompatibility issues
+with the `bloc_test` dependency and the specific structure of the API response data, the decision
+was made to switch to `json_serializable`.  `json_serializable` proved to be a better fit for
+handling the API's snake_case naming conventions and nullable fields, simplifying the data mapping
+process. While Freezed offers powerful features like immutability and `copyWith`,
+`json_serializable` effectively addresses the project's current needs and integrates well with the
+existing architecture.
 
 ## Testing
 
