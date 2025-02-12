@@ -35,7 +35,7 @@ handling events and emitting states. Dependency injection is managed using `get_
 
 - **`flutter_dotenv: ^5.2.1`**: Loads environment variables from a `.env`
   file. [Official documentation](https://pub.dev/packages/flutter_dotenv)
-- **`json_annotation`**: Annotations for JSON serialization/deserialization code
+- **`json_annotation: ^4.9.0`**: Annotations for JSON serialization/deserialization code
   generation. [Official documentation](https://pub.dev/packages/json_annotation)
 - **`http: ^1.3.0`**: For making HTTP
   requests. [Official documentation](https://pub.dev/packages/http)
@@ -43,7 +43,7 @@ handling events and emitting states. Dependency injection is managed using `get_
   tools. [Official documentation](https://pub.dev/packages/build_runner)
 - **`json_serializable: ^6.9.3`**: Generates JSON serialization/deserialization
   code. [Official documentation](https://pub.dev/packages/json_serializable)
-- **`get_it: ^7.6.0`**: A service locator for dependency
+- **`get_it: ^8.0.3`**: A service locator for dependency
   injection. [Official documentation](https://pub.dev/packages/get_it)
 - **`flutter_bloc: ^9.0.0`**: For state management with
   BLoC. [Official documentation](https://pub.dev/packages/flutter_bloc)
@@ -51,10 +51,12 @@ handling events and emitting states. Dependency injection is managed using `get_
   events. [Official documentation](https://pub.dev/packages/equatable)
 - **`logger: ^2.5.0`**:  For logging in the
   application. [Official documentation](https://pub.dev/packages/logger)
-- **`mockito: ^5.0.0`**: For creating mocks in unit
+- **`mockito: ^5.4.5`**: For creating mocks in unit
   tests. [Official documentation](https://pub.dev/packages/mockito)
 - **`bloc_test: ^10.0.0`**: For testing
   BLoCs. [Official documentation](https://pub.dev/packages/bloc_test)
+- **`cached_network_image: ^3.4.1`**: For displaying and caching images from the
+  internet. [Official documentation](https://pub.dev/packages/cached_network_image)
 
 ## Code Generation
 

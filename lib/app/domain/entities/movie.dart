@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'movie.g.dart';
@@ -48,22 +49,58 @@ class Movie {
 
   Map<String, dynamic> toJson() => _$MovieToJson(this);
 
-
-  // Mock data factory (optional, but highly recommended for testing)
   factory Movie.mock() => Movie(
-    adult: false,
-    backdropPath: "/test_backdrop.jpg",
-    genreIds: const [28, 12, 14],
-    id: 1,
-    originalLanguage: "en",
-    originalTitle: "Test Movie Original",
-    overview: "Test Overview",
-    popularity: 1000.0,
-    posterPath: "/test.jpg",
-    releaseDate: "2024-01-01", // Mock date as String to match API format
-    title: "Test Movie",
-    video: false,
-    voteAverage: 7.5,
-    voteCount: 1000,
-  );
+        adult: false,
+        backdropPath: "/test_backdrop.jpg",
+        genreIds: const [28, 12, 14],
+        id: 1,
+        originalLanguage: "en",
+        originalTitle: "Test Movie Original",
+        overview: "Test Overview",
+        popularity: 1000.0,
+        posterPath: "/test.jpg",
+        releaseDate: "2024-01-01",
+        title: "Test Movie",
+        video: false,
+        voteAverage: 7.5,
+        voteCount: 1000,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    other is Movie &&
+        adult == other.adult &&
+        backdropPath == other.backdropPath &&
+        listEquals(genreIds, other.genreIds) &&
+        id == other.id &&
+        originalLanguage == other.originalLanguage &&
+        originalTitle == other.originalTitle &&
+        overview == other.overview &&
+        popularity == other.popularity &&
+        posterPath == other.posterPath &&
+        releaseDate == other.releaseDate &&
+        title == other.title &&
+        video == other.video &&
+        voteAverage == other.voteAverage &&
+        voteCount == other.voteCount;
+    return true;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      adult,
+      backdropPath,
+      Object.hashAll(genreIds ?? []),
+      id,
+      originalLanguage,
+      originalTitle,
+      overview,
+      popularity,
+      posterPath,
+      releaseDate,
+      title,
+      video,
+      voteAverage,
+      voteCount);
 }
