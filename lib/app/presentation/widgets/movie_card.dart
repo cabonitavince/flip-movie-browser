@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:movie_browser/app/domain/entities/movie.dart';
+import 'package:movie_browser/app/presentation/pages/movie_details_page.dart';
 import 'package:movie_browser/app/presentation/widgets/favorite_button.dart';
+import 'package:movie_browser/core/extensions/string_ext.dart';
 import 'package:movie_browser/core/widgets/app_image.dart';
 import 'package:movie_browser/core/widgets/gradient_container.dart';
-import 'package:movie_browser/utils/constants.dart';
-import 'package:movie_browser/utils/env_config.dart';
+import 'package:movie_browser/core/widgets/icon_text.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
+  final bool showFavoriteButton;
 
-  const MovieCard({super.key, required this.movie});
+  const MovieCard(
+      {super.key, required this.movie, this.showFavoriteButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,13 @@ class MovieCard extends StatelessWidget {
 
     return InkWell(
       borderRadius: BorderRadius.circular(borderRadius),
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MovieDetailsPage(movie: movie)),
+        );
+      },
       child: Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -27,7 +36,7 @@ class MovieCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             AppImage(
-              imageUrl: '${EnvConfig.movieImageBaseUrl}${movie.posterPath}',
+              imageUrl: movie.posterPath.absoluteImageUrlW500,
               fit: BoxFit.cover,
             ),
             Positioned(
@@ -49,14 +58,17 @@ class MovieCard extends StatelessWidget {
                 ],
               )),
             ),
-            Positioned(
-              top: 16,
-              right: 16,
-              child: FavoriteButton(
-                  isFavorite: movie.isFavorite,
-                  onFavoriteChanged: (value) {
-                    //TODO: Implement on changed
-                  }),
+            Visibility(
+              visible: showFavoriteButton,
+              child: Positioned(
+                top: 16,
+                right: 16,
+                child: FavoriteButton(
+                    isFavorite: movie.isFavorite,
+                    onFavoriteChanged: (value) {
+                      //TODO: Implement on changed
+                    }),
+              ),
             ),
           ],
         ),
@@ -68,25 +80,16 @@ class MovieCard extends StatelessWidget {
     return Row(
       children: [
         Text(
-          movie.releaseDate?.split('-')[0] ?? '',
+          movie.releaseDate.yearFromDate,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 color: Colors.grey,
                 fontWeight: FontWeight.w600,
               ),
         ),
         const Spacer(),
-        const Icon(
-          Icons.star,
-          color: AppConstants.primaryColor,
-          size: 16,
-        ),
-        Text(
-          (movie.voteAverage?.toStringAsFixed(1)).toString(),
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
-        ),
+        IconText(
+            icon: Icons.star_rounded,
+            text: (movie.voteAverage?.toStringAsFixed(1)) ?? '')
       ],
     );
   }

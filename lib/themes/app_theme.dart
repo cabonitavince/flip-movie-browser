@@ -13,6 +13,9 @@ class AppTheme {
     iconTheme: const IconThemeData(
       color: Colors.black,
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: _elevatedButtonStyle,
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -25,6 +28,27 @@ class AppTheme {
     ),
     iconTheme: const IconThemeData(
       color: Colors.white,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: _elevatedButtonStyle,
+    ),
+  );
+
+  static final ButtonStyle _elevatedButtonStyle = ButtonStyle(
+    iconSize: WidgetStateProperty.all<double>(30),
+    backgroundColor: WidgetStateProperty.all(AppConstants.primaryColor),
+    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+    ),
+    padding: WidgetStateProperty.all<EdgeInsets>(
+      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+    ),
+    textStyle: WidgetStateProperty.all<TextStyle>(
+      const TextStyle(
+        color: Colors.white,
+      ),
     ),
   );
 }
