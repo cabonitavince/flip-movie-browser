@@ -94,7 +94,7 @@ void main() {
           any,
           headers: anyNamed('headers'),
         ),
-      ).thenThrow(SocketException('No internet connection'));
+      ).thenThrow(const SocketException('No internet connection'));
 
       // Act & Assert
       expect(() => movieService.getPopularMovies(),

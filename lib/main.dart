@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<MovieListBloc>(
             create: (context) =>
-                serviceLocator<MovieListBloc>()..add(MovieListLoad()),
+                serviceLocator<MovieListBloc>()..add(const MovieListLoad()),
           ),
         ],
         child: MaterialApp(
@@ -30,6 +30,6 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
               useMaterial3: true,
             ),
-            home: HomePage()));
+            home: const HomePage()));
   }
 }

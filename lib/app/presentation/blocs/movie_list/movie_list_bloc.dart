@@ -10,7 +10,7 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
   final GetPopularMoviesUseCase getPopularMoviesUseCase;
 
   MovieListBloc(this.getPopularMoviesUseCase)
-      : super(MovieListState(status: StateEnum.initial)) {
+      : super(const MovieListState(status: StateEnum.initial)) {
     on<MovieListLoad>((event, emit) async {
       emit(state.copyWith(status: StateEnum.loading));
 

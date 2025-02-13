@@ -31,9 +31,9 @@ void main() {
             .thenAnswer((_) async => tMovies);
         return MovieListBloc(mockGetPopularMoviesUseCase);
       },
-      act: (bloc) => bloc.add(MovieListLoad()),
+      act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
-        MovieListState(status: StateEnum.loading),
+        const MovieListState(status: StateEnum.loading),
         MovieListState(status: StateEnum.loaded, movies: tMovies),
       ],
     );
@@ -45,10 +45,10 @@ void main() {
             .thenAnswer((_) async => <Movie>[]);
         return MovieListBloc(mockGetPopularMoviesUseCase);
       },
-      act: (bloc) => bloc.add(MovieListLoad()),
+      act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
-        MovieListState(status: StateEnum.loading),
-        MovieListState(status: StateEnum.empty, movies: []),
+        const MovieListState(status: StateEnum.loading),
+        const MovieListState(status: StateEnum.empty, movies: []),
       ],
     );
 
@@ -59,10 +59,10 @@ void main() {
             .thenThrow(NetworkException('No internet'));
         return MovieListBloc(mockGetPopularMoviesUseCase);
       },
-      act: (bloc) => bloc.add(MovieListLoad()),
+      act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
-        MovieListState(status: StateEnum.loading),
-        MovieListState(
+        const MovieListState(status: StateEnum.loading),
+        const MovieListState(
             status: StateEnum.noInternet,
             errorMessage: 'No internet connection'),
       ],
@@ -75,10 +75,10 @@ void main() {
             .thenThrow(ServiceException('Service Unavailable'));
         return MovieListBloc(mockGetPopularMoviesUseCase);
       },
-      act: (bloc) => bloc.add(MovieListLoad()),
+      act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
-        MovieListState(status: StateEnum.loading),
-        MovieListState(
+        const MovieListState(status: StateEnum.loading),
+        const MovieListState(
             status: StateEnum.error, errorMessage: 'Service Unavailable'),
       ],
     );
@@ -90,10 +90,10 @@ void main() {
             .thenThrow(Exception('Something Went Wrong!'));
         return MovieListBloc(mockGetPopularMoviesUseCase);
       },
-      act: (bloc) => bloc.add(MovieListLoad()),
+      act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
-        MovieListState(status: StateEnum.loading),
-        MovieListState(
+        const MovieListState(status: StateEnum.loading),
+        const MovieListState(
             status: StateEnum.error, errorMessage: 'Something Went Wrong!'),
       ],
     );
