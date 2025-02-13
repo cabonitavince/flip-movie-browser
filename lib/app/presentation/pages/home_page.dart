@@ -54,8 +54,10 @@ class _HomePageState extends State<HomePage> {
         ),
         body: BlocBuilder<MovieListBloc, MovieListState>(
             builder: (context, state) {
-          if (state.status == StateEnum.loading) {
-            return const CustomLoader();
+          if (state.status == StateEnum.error) {
+            return const CustomMessage(
+                type: MessageTypeEnum.error,
+                message: 'Something went wrong!\nPlease try again later.');
           } else if (state.status == StateEnum.loaded) {
             return buildMovieList(state.movies);
           } else if (state.status == StateEnum.noInternet) {
@@ -70,8 +72,7 @@ class _HomePageState extends State<HomePage> {
                 type: MessageTypeEnum.info,
                 message: 'No Movies Found!\nPlease try again later.');
           } else {
-            return const CustomMessage(
-                type: MessageTypeEnum.error, message: 'Something went wrong!');
+            return const CustomLoader();
           }
         }));
   }

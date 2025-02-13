@@ -4,7 +4,10 @@ import 'package:movie_browser/app/presentation/blocs/search_movie/search_movie_b
 import 'package:movie_browser/app/presentation/blocs/search_movie/search_movie_event.dart';
 import 'package:movie_browser/app/presentation/blocs/search_movie/search_movie_state.dart';
 import 'package:movie_browser/app/presentation/widgets/movie_card.dart';
+import 'package:movie_browser/core/enum/message_type_enum.dart';
 import 'package:movie_browser/core/enum/state_enum.dart';
+import 'package:movie_browser/core/widgets/custom_loader.dart';
+import 'package:movie_browser/core/widgets/custom_message.dart';
 import 'package:movie_browser/core/widgets/responsive_gridview_builder.dart';
 import 'package:movie_browser/utils/constants.dart';
 
@@ -57,32 +60,29 @@ class _MovieSearchPageState extends State<MovieSearchPage> {
             return ResponsiveGridViewBuilder(
                 itemCount: state.result.length,
                 itemBuilder: (context, index) {
-                  return MovieCard(movie: state.result[index]);
+                  return MovieCard(
+                    movie: state.result[index],
+                    showFavoriteButton: false,
+                  );
                 });
           } else if (state.status == StateEnum.initial) {
-            //TODO: Add an initial widget
-            return const Center(
-              child: Text('Search for a movie'),
+            return const CustomMessage(
+              message: 'Start searching for movies',
             );
           } else if (state.status == StateEnum.error) {
-            //TODO: Add an error widget
-            return const Center(
-              child: Text('An error occurred'),
+            return const CustomMessage(
+              message: 'Something went wrong.\nPlease try again',
             );
           } else if (state.status == StateEnum.empty) {
-            //TODO: Add an empty widget
-            return const Center(
-              child: Text('No movies found'),
-            );
+            return const CustomMessage(
+                message: 'No movies found!\nPlease type something else.');
           } else if (state.status == StateEnum.noInternet) {
-            //TODO: Add a no internet widget
-            return const Center(
-              child: Text('No internet connection'),
-            );
+            return const CustomMessage(
+                type: MessageTypeEnum.warning,
+                message:
+                    'Please try again later!\nCheck your internet connection.');
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CustomLoader();
           }
         },
       ),

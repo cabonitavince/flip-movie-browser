@@ -9,8 +9,10 @@ import 'package:movie_browser/utils/constants.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
+  final bool showFavoriteButton;
 
-  const MovieDetailsPage({super.key, required this.movie});
+  const MovieDetailsPage(
+      {super.key, required this.movie, this.showFavoriteButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -125,9 +127,11 @@ class MovieDetailsPage extends StatelessWidget {
           },
         ),
         const Spacer(),
-        FavoriteButton(
-            isFavorite: isFavorite,
-            onFavoriteChanged: onFavoriteChanged)
+        Visibility(
+          visible: showFavoriteButton,
+          child: FavoriteButton(
+              isFavorite: isFavorite, onFavoriteChanged: onFavoriteChanged),
+        )
       ],
     );
   }

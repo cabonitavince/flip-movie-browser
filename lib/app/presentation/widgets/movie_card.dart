@@ -24,7 +24,10 @@ class MovieCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => MovieDetailsPage(movie: movie)),
+              builder: (context) => MovieDetailsPage(
+                    movie: movie,
+                    showFavoriteButton: showFavoriteButton,
+                  )),
         );
       },
       child: Card(
