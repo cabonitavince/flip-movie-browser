@@ -5,6 +5,7 @@ import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_bloc.
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_event.dart';
 import 'package:movie_browser/app/presentation/pages/home_page.dart';
 import 'package:movie_browser/service_locator.dart';
+import 'package:movie_browser/themes/app_theme.dart';
 
 Future<void> main() async {
   setupServiceLocator();
@@ -26,10 +27,9 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
             title: 'Flip Take Home Challenge - Movie Browser App',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: ThemeMode.system,
             home: const HomePage()));
   }
 }

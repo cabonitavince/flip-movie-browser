@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_browser/utils/constants.dart';
 
 class FavoriteButton extends StatefulWidget {
   final bool isFavorite;
@@ -52,7 +53,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         child: Icon(
           key: ValueKey<bool>(_isFavorite),
           Icons.favorite,
-          color: (_isFavorite ? const Color(0xFF1ce783) : Colors.white)
+          color: (_isFavorite ? AppConstants.primaryColor : Colors.white)
               .withValues(alpha: 0.8),
           size: _size,
         ),

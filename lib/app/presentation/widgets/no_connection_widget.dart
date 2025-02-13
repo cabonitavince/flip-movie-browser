@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_browser/utils/constants.dart';
 
 class NoConnectionWidget extends StatelessWidget {
   const NoConnectionWidget({super.key});
@@ -8,7 +9,7 @@ class NoConnectionWidget extends StatelessWidget {
     return Container(
       padding:
       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: const Color(0xFF1ce783),
+      color: AppConstants.primaryColor,
       child: Row(
         children: [
           const Icon(Icons.wifi_off),

@@ -3,6 +3,7 @@ import 'package:movie_browser/app/domain/entities/movie.dart';
 import 'package:movie_browser/app/presentation/widgets/favorite_button.dart';
 import 'package:movie_browser/core/widgets/app_image.dart';
 import 'package:movie_browser/core/widgets/gradient_container.dart';
+import 'package:movie_browser/utils/constants.dart';
 import 'package:movie_browser/utils/env_config.dart';
 
 class MovieCard extends StatelessWidget {
@@ -76,7 +77,7 @@ class MovieCard extends StatelessWidget {
         const Spacer(),
         const Icon(
           Icons.star,
-          color: Color(0xFF1ce783),
+          color: AppConstants.primaryColor,
           size: 16,
         ),
         Text(

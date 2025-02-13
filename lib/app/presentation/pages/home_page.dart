@@ -17,9 +17,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFF111111),
         appBar: AppBar(
-          backgroundColor: const Color(0xFF111111),
           title: const Text(
             'Popular Movies',
             style: TextStyle(
