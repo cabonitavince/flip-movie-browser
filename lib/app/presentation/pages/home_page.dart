@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_state.dart';
 import 'package:movie_browser/app/presentation/widgets/movie_card.dart';
+import 'package:movie_browser/app/presentation/widgets/no_connection_widget.dart';
 import 'package:movie_browser/core/enum/state_enum.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,10 +17,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF111111),
+        backgroundColor: const Color(0xFF111111),
         appBar: AppBar(
-          backgroundColor: Color(0xFF111111),
-          title: Text(
+          backgroundColor: const Color(0xFF111111),
+          title: const Text(
             'Popular Movies',
             style: TextStyle(
               color: Color(0xFF8B7DFF),
@@ -32,12 +33,19 @@ class _HomePageState extends State<HomePage> {
           centerTitle: false,
           actions: [
             IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.search,
                   size: 25,
                 ),
                 onPressed: () {}),
           ],
+          bottom: context.watch<MovieListBloc>().state.status ==
+                  StateEnum.noInternet
+              ? const PreferredSize(
+                  preferredSize: Size.fromHeight(50),
+                  child: NoConnectionWidget(),
+                )
+              : null,
         ),
         body: BlocBuilder<MovieListBloc, MovieListState>(
             builder: (context, state) {
@@ -58,7 +66,6 @@ class _HomePageState extends State<HomePage> {
 
                 return GridView.builder(
                   padding: const EdgeInsets.all(16.0),
-                  // Adjust padding as needed
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: 8.0,

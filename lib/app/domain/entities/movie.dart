@@ -27,6 +27,7 @@ class Movie {
   double? voteAverage;
   @JsonKey(name: 'vote_count')
   int? voteCount;
+  bool isFavorite;
 
   Movie({
     this.adult,
@@ -43,6 +44,7 @@ class Movie {
     this.video,
     this.voteAverage,
     this.voteCount,
+    this.isFavorite = false,
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
@@ -64,6 +66,7 @@ class Movie {
         video: false,
         voteAverage: 7.5,
         voteCount: 1000,
+        isFavorite: false,
       );
 
   @override
@@ -83,7 +86,8 @@ class Movie {
         title == other.title &&
         video == other.video &&
         voteAverage == other.voteAverage &&
-        voteCount == other.voteCount;
+        voteCount == other.voteCount &&
+        isFavorite == other.isFavorite;
     return true;
   }
 
@@ -102,5 +106,6 @@ class Movie {
       title,
       video,
       voteAverage,
-      voteCount);
+      voteCount,
+      isFavorite);
 }

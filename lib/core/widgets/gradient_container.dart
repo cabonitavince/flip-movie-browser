@@ -10,7 +10,7 @@ class GradientContainer extends StatelessWidget {
     required this.child,
     this.colors = const [Colors.transparent, Colors.black87],
     this.padding =
-        const EdgeInsets.only(top: 50, bottom: 16, left: 16, right: 16),
+        const EdgeInsets.only(top: 50, bottom: 8, left: 16, right: 16),
   });
 
   @override
