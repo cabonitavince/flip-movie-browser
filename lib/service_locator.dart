@@ -5,6 +5,7 @@ import 'package:movie_browser/app/domain/repositories/movie_repository_impl.dart
 import 'package:movie_browser/app/domain/repositories/movie_respository.dart';
 import 'package:movie_browser/app/domain/usecases/get_popular_movies_usecase.dart';
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_bloc.dart';
+import 'package:movie_browser/utils/api_util.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -12,9 +13,13 @@ void setupServiceLocator() {
   // http client
   serviceLocator.registerLazySingleton<http.Client>(() => http.Client());
 
+  // api util
+  serviceLocator.registerLazySingleton(
+      () => ApiUtil(httpClient: serviceLocator<http.Client>()));
+
   // services
   serviceLocator.registerLazySingleton<MovieService>(
-    () => MovieService(httpClient: serviceLocator<http.Client>()),
+    () => MovieService(apiUtil: serviceLocator<ApiUtil>()),
   );
 
   // repositories

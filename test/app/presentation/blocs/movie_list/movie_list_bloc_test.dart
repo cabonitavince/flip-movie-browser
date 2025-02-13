@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:movie_browser/app/domain/entities/movie.dart';
+import 'package:movie_browser/app/domain/entities/movie/movie.dart';
 import 'package:movie_browser/app/domain/exceptions/network_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/service_exception.dart';
 import 'package:movie_browser/app/domain/usecases/get_popular_movies_usecase.dart';

@@ -1,5 +1,5 @@
 import 'package:movie_browser/app/data/services/movie_service.dart';
-import 'package:movie_browser/app/domain/entities/movie.dart';
+import 'package:movie_browser/app/domain/entities/movie/movie.dart';
 import 'package:movie_browser/app/domain/exceptions/impl_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/invalid_api_response_exception.dart';
 import 'package:movie_browser/app/domain/repositories/movie_respository.dart';

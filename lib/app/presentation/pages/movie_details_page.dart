@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_browser/app/domain/entities/movie.dart';
+import 'package:movie_browser/app/domain/entities/movie/movie.dart';
 import 'package:movie_browser/app/presentation/widgets/favorite_button.dart';
 import 'package:movie_browser/core/extensions/string_ext.dart';
 import 'package:movie_browser/core/widgets/app_image.dart';

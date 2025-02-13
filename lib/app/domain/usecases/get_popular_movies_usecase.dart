@@ -1,4 +1,4 @@
-import 'package:movie_browser/app/domain/entities/movie.dart';
+import 'package:movie_browser/app/domain/entities/movie/movie.dart';
 import 'package:movie_browser/app/domain/repositories/movie_respository.dart';
 
 class GetPopularMoviesUseCase {

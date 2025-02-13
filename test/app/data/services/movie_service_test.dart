@@ -7,9 +7,10 @@ import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:movie_browser/app/data/services/movie_service.dart';
-import 'package:movie_browser/app/domain/entities/movie.dart';
+import 'package:movie_browser/app/domain/entities/movie/movie.dart';
 import 'package:movie_browser/app/domain/exceptions/network_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/service_exception.dart';
+import 'package:movie_browser/utils/api_util.dart'; // Import ApiUtil
 import 'package:movie_browser/utils/env_config.dart';
 
 import 'movie_service_test.mocks.dart';
@@ -17,12 +18,14 @@ import 'movie_service_test.mocks.dart';
 @GenerateMocks([http.Client])
 void main() {
   late MockClient mockHttpClient;
+  late ApiUtil apiUtil;
   late MovieService movieService;
 
   setUp(() async {
     await dotenv.load(fileName: '.env');
     mockHttpClient = MockClient();
-    movieService = MovieService(httpClient: mockHttpClient);
+    apiUtil = ApiUtil(httpClient: mockHttpClient);
+    movieService = MovieService(apiUtil: apiUtil);
   });
 
   group('MovieService->getPopularMovies', () {
@@ -31,8 +34,9 @@ void main() {
     // success case
     test('should return list of movies when API call is successful', () async {
       // Arrange
-      final expectedUrl = Uri.parse('${EnvConfig.apiBaseUrl}/movie/popular')
-          .replace(queryParameters: {
+      final expectedUrl =
+          Uri.parse('${EnvConfig.apiBaseUrl}${EnvConfig.moviePopularUrl}')
+              .replace(queryParameters: {
         'language': 'en-US',
         'page': '1',
       });

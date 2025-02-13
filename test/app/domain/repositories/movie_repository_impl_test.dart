@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_browser/app/data/services/movie_service.dart';
-import 'package:movie_browser/app/domain/entities/movie.dart';
+import 'package:movie_browser/app/domain/entities/movie/movie.dart';
 import 'package:movie_browser/app/domain/exceptions/invalid_api_response_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/network_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/service_exception.dart';
