@@ -9,22 +9,33 @@ class MovieRepositoryImpl implements MovieRepository {
 
   const MovieRepositoryImpl(this._movieService);
 
-  @override
-  Future<List<Movie>> getPopularMovies({String language = 'en-US', int page = 1}) async {
-    final value = await _movieService.getPopularMovies(language: language, page: page);
+  Future<List<Movie>> _fetchMovies(Future<Map<String, dynamic>> future) async {
+    final value = await future;
     try {
       if (value.containsKey('results')) {
         final results = value['results'] as List<dynamic>;
-        final movies =
-            results.map((movieJson) => Movie.fromJson(movieJson)).toList();
-        return movies;
+        return results.map((movieJson) => Movie.fromJson(movieJson)).toList();
       } else {
         throw InvalidApiResponseException('Invalid API response format');
       }
     } on InvalidApiResponseException {
       rethrow;
     } catch (e) {
-      throw ImplException('Error occurred while fetching popular movies');
+      throw ImplException('Error occurred while fetching movies');
     }
+  }
+
+  @override
+  Future<List<Movie>> getPopularMovies(
+      {String language = 'en-US', int page = 1}) async {
+    return _fetchMovies(
+        _movieService.getPopularMovies(language: language, page: page));
+  }
+
+  @override
+  Future<List<Movie>> searchMovies(String query,
+      {String language = 'en-US', int page = 1}) async {
+    return _fetchMovies(
+        _movieService.searchMovies(query, language: language, page: page));
   }
 }
