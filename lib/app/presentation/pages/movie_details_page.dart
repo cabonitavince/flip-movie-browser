@@ -119,7 +119,6 @@ class MovieDetailsPage extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back_rounded,
             color: AppConstants.primaryColor,
-            size: 30,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -127,7 +126,6 @@ class MovieDetailsPage extends StatelessWidget {
         ),
         const Spacer(),
         FavoriteButton(
-            size: 30,
             isFavorite: isFavorite,
             onFavoriteChanged: onFavoriteChanged)
       ],

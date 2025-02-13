@@ -10,7 +10,7 @@ class FavoriteButton extends StatefulWidget {
     super.key,
     required this.isFavorite,
     required this.onFavoriteChanged,
-    this.size = 25,
+    this.size = 30,
   });
 
   @override

@@ -29,7 +29,11 @@ class AppImage extends StatelessWidget {
       imageUrl: imageUrl,
       fit: fit,
       placeholder: placeholder,
-      errorWidget: errorWidget,
+      errorWidget: errorWidget ??
+          (context, url, error) => Image.asset(
+                'lib/assets/images/no-image-placeholder.png',
+                fit: BoxFit.cover,
+              ),
       fadeOutDuration: fadeOutDuration,
       fadeInDuration: fadeInDuration,
       height: height,
