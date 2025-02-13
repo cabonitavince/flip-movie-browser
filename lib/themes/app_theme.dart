@@ -6,10 +6,7 @@ class AppTheme {
     brightness: Brightness.light,
     primaryColor: AppConstants.primaryColor,
     scaffoldBackgroundColor: const Color(0xFFF5F5F5),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFFFFFFFF),
-      foregroundColor: Colors.black,
-    ),
+    appBarTheme: _appBarTheme,
     iconTheme: const IconThemeData(
       color: Colors.black,
     ),
@@ -21,11 +18,8 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: AppConstants.primaryColor,
-    scaffoldBackgroundColor: const Color(0xFF111111),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFF111111),
-      foregroundColor: Colors.white,
-    ),
+    scaffoldBackgroundColor: AppConstants.secondaryColor,
+    appBarTheme: _appBarTheme,
     iconTheme: const IconThemeData(
       color: Colors.white,
     ),
@@ -50,5 +44,10 @@ class AppTheme {
         color: Colors.white,
       ),
     ),
+  );
+
+  static final AppBarTheme _appBarTheme = const AppBarTheme(
+    backgroundColor: AppConstants.secondaryColor,
+    foregroundColor: Colors.white,
   );
 }
