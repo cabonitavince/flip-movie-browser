@@ -3,8 +3,10 @@ enum StateEnum {
   loading,
   loaded,
   error,
+  success,
   empty,
   refreshing,
   loadingMore,
   noInternet,
+  searching,
 }
