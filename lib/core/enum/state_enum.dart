@@ -5,8 +5,6 @@ enum StateEnum {
   error,
   success,
   empty,
-  refreshing,
-  loadingMore,
   noInternet,
   searching,
 }
