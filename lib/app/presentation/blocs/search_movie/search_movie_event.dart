@@ -4,6 +4,13 @@ abstract class SearchMovieEvent extends Equatable {
   const SearchMovieEvent();
 }
 
+final class SearchMovieReset extends SearchMovieEvent {
+  const SearchMovieReset();
+
+  @override
+  List<Object> get props => [];
+}
+
 final class SearchMovieQuery extends SearchMovieEvent {
   final String query;
   final String language;

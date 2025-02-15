@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_browser/app/domain/entities/movie/movie.dart';
+import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_bloc.dart';
+import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_event.dart';
 import 'package:movie_browser/app/presentation/pages/movie_details_page.dart';
 import 'package:movie_browser/app/presentation/widgets/favorite_button.dart';
 import 'package:movie_browser/core/extensions/string_ext.dart';
@@ -69,7 +72,9 @@ class MovieCard extends StatelessWidget {
                 child: FavoriteButton(
                     isFavorite: movie.isFavorite,
                     onFavoriteChanged: (value) {
-                      //TODO: Implement on changed
+                      context
+                          .read<MovieListBloc>()
+                          .add(MovieListToggleFavorite(movie, value));
                     }),
               ),
             ),

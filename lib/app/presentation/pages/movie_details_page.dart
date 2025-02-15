@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_browser/app/domain/entities/movie/movie.dart';
+import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_bloc.dart';
+import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_event.dart';
 import 'package:movie_browser/app/presentation/widgets/favorite_button.dart';
 import 'package:movie_browser/core/extensions/string_ext.dart';
 import 'package:movie_browser/core/widgets/app_image.dart';
@@ -31,7 +34,9 @@ class MovieDetailsPage extends StatelessWidget {
                 left: 16,
                 right: 16,
                 child: buildCustomAppBar(context, movie.isFavorite, (value) {
-                  //TODO: Implement favorite functionality
+                  context
+                      .read<MovieListBloc>()
+                      .add(MovieListToggleFavorite(movie, value));
                 })),
             Positioned(
               bottom: 0,
@@ -78,7 +83,6 @@ class MovieDetailsPage extends StatelessWidget {
               text: movie.releaseDate.yearFromDate,
               textStyle: iconTextStyle,
             )
-            //TODO: Add genres?
           ],
         ),
         const SizedBox(

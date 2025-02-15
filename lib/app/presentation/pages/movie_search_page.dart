@@ -31,20 +31,32 @@ class _MovieSearchPageState extends State<MovieSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: BlocConsumer<SearchMovieBloc, SearchMovieState>(
-        listener: (context, state) {
-          //TODO: Implement listener
-        },
+      body: BlocBuilder<SearchMovieBloc, SearchMovieState>(
         builder: (context, state) {
           if (state.status == StateEnum.success) {
-            return ResponsiveGridViewBuilder(
-                itemCount: state.result.length,
-                itemBuilder: (context, index) {
-                  return MovieCard(
-                    movie: state.result[index],
-                    showFavoriteButton: false,
-                  );
-                });
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      "Search results for: \n'${_searchController.text}'",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          )),
+                ),
+                Expanded(
+                  child: ResponsiveGridViewBuilder(
+                      itemCount: state.result.length,
+                      itemBuilder: (context, index) {
+                        return MovieCard(
+                          movie: state.result[index],
+                          showFavoriteButton: false,
+                        );
+                      }),
+                )
+              ],
+            );
           } else if (state.status == StateEnum.initial) {
             return const CustomMessage(
               message: 'Start searching for movies',
@@ -71,6 +83,13 @@ class _MovieSearchPageState extends State<MovieSearchPage> {
 
   AppBar buildAppBar() {
     return AppBar(
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          context.read<SearchMovieBloc>().add(const SearchMovieReset());
+          Navigator.pop(context);
+        },
+      ),
       title: TextField(
         autofocus: true,
         cursorColor: AppConstants.primaryColor,
@@ -98,7 +117,6 @@ class _MovieSearchPageState extends State<MovieSearchPage> {
   void _handleSubmit(String query) {
     if (query.trim().isNotEmpty) {
       FocusScope.of(context).unfocus();
-      _searchController.clear();
       context.read<SearchMovieBloc>().add(SearchMovieQuery(query));
     }
   }

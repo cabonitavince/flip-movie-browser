@@ -11,6 +11,9 @@ class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
 
   SearchMovieBloc(this.searchMoviesUseCase)
       : super(const SearchMovieState(status: StateEnum.initial)) {
+    on<SearchMovieReset>((event, emit) async {
+      emit(const SearchMovieState(status: StateEnum.initial));
+    });
     on<SearchMovieQuery>((event, emit) async {
       emit(state.copyWith(status: StateEnum.searching));
 
