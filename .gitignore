@@ -32,6 +32,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/pubspec.lock/
 
 # Symbolication related
 app.*.symbols
@@ -43,3 +44,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Security
+*.env
+
+# Generated code for freezed
+**/*.freezed.dart
+
+# Generated code for json_serializable
+**/*.g.dart
+
+# Generated code for flutter mock tests
+*.mocks.dart
