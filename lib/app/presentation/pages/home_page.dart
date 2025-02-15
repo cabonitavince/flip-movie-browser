@@ -24,17 +24,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: buildAppBar(),
-        body: BlocConsumer<MovieListBloc, MovieListState>(
-            listener: (context, state) {
-          if (state.status == StateEnum.error) {
-            showSnackBar('Something went wrong! Please try again later.');
-          } else if (state.status == StateEnum.noInternet) {
-            showSnackBar('No internet connection');
-          } else if (state.status == StateEnum.loaded) {
-            showSnackBar('Movies loaded successfully');
-          }
-        }, builder: (context, state) {
+        body: BlocBuilder<MovieListBloc, MovieListState>(
+            builder: (context, state) {
           if (state.status == StateEnum.error) {
             return const CustomMessage(
                 type: MessageTypeEnum.error,
@@ -106,14 +99,5 @@ class _HomePageState extends State<HomePage> {
 
   void _handleOnRefreshTap() {
     context.read<MovieListBloc>().add(const MovieListLoad());
-  }
-
-  void showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 1),
-      ),
-    );
   }
 }

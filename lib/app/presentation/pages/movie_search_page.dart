@@ -30,6 +30,7 @@ class _MovieSearchPageState extends State<MovieSearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: buildAppBar(),
       body: BlocBuilder<SearchMovieBloc, SearchMovieState>(
         builder: (context, state) {
