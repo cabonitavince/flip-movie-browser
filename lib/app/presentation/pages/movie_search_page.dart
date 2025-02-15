@@ -30,31 +30,11 @@ class _MovieSearchPageState extends State<MovieSearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: TextField(
-          autofocus: true,
-          cursorColor: AppConstants.primaryColor,
-          style: const TextStyle(color: Colors.white),
-          controller: _searchController,
-          onSubmitted: _handleSubmit,
-          decoration: InputDecoration(
-            hintText: 'Search movies...',
-            suffixIcon: IconButton(
-                icon: const Icon(
-                  Icons.search,
-                ),
-                onPressed: () => _handleSubmit(_searchController.text)),
-          ),
-        ),
-        elevation: 0,
-        centerTitle: false,
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(10),
-          child: SizedBox(),
-        ),
-      ),
+      appBar: buildAppBar(),
       body: BlocConsumer<SearchMovieBloc, SearchMovieState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          //TODO: Implement listener
+        },
         builder: (context, state) {
           if (state.status == StateEnum.success) {
             return ResponsiveGridViewBuilder(
@@ -85,6 +65,32 @@ class _MovieSearchPageState extends State<MovieSearchPage> {
             return const CustomLoader();
           }
         },
+      ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      title: TextField(
+        autofocus: true,
+        cursorColor: AppConstants.primaryColor,
+        style: const TextStyle(color: Colors.white),
+        controller: _searchController,
+        onSubmitted: _handleSubmit,
+        decoration: InputDecoration(
+          hintText: 'Search movies...',
+          suffixIcon: IconButton(
+              icon: const Icon(
+                Icons.search,
+              ),
+              onPressed: () => _handleSubmit(_searchController.text)),
+        ),
+      ),
+      elevation: 0,
+      centerTitle: false,
+      bottom: const PreferredSize(
+        preferredSize: Size.fromHeight(10),
+        child: SizedBox(),
       ),
     );
   }
