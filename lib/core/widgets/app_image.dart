@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AppImage extends StatelessWidget {
@@ -38,6 +39,11 @@ class AppImage extends StatelessWidget {
       fadeInDuration: fadeInDuration,
       height: height,
       width: width,
+      errorListener: (exception) {
+        if (kDebugMode) {
+          print('Error loading image: $exception');
+        }
+      },
     );
   }
 }

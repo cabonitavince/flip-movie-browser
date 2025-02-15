@@ -20,16 +20,52 @@ structure a Flutter app for maintainability, testability, and scalability using 
 
 This project follows the Clean Architecture principles, separating concerns into distinct layers:
 
+- **Core:** Contains shared code that can be used across different features.
 - **Entities:** Plain Dart objects representing the domain model.
 - **Use Cases:** Encapsulate business logic and interact with repositories.
 - **Repositories:** Abstract interfaces for data access, implemented by data sources.
 - **Data:** Handle actual data fetching (API, database, etc.).
 - **Presentation (UI):** Flutter widgets and BLoCs for state management.
+- **Data Flow:** The architecture emphasizes a unidirectional data flow, typically following the
+  pattern: UI -> BLoC -> Use Cases -> Repository -> Data. When the UI interacts with the
+  application, it triggers an event in the BLoC. The BLoC then calls the appropriate Use Case. The
+  Use Case, in turn, interacts with the Repository to fetch or manipulate data. Finally, the Data
+  layer (via its data sources) interacts with the actual data source (API, database, etc.) and
+  returns the result back up the chain. This structured flow helps to maintain a clear separation of
+  concerns and improves the overall organization of the application.
 
-The BLoC pattern is used for state management in the UI layer. Each feature has its own BLoC,
+The `BLoC pattern` is used for state management in the UI layer. Each feature has its own BLoC,
 handling events and emitting states. Dependency injection is managed using `get_it`.
 
 ## Building and Running
+
+To build and run the Movie Browser App, follow these steps:
+
+1. **Clone the repository:**
+   ```sh
+   git https://github.com/cabonitavince/flip-movie-browser.git
+   cd movie_browser
+2. **Install dependencies:**
+   ```sh
+   flutter pub get
+   ```
+3. **Create a `.env` file:**
+   Create a `.env` file in the root directory of the project and paste the following content:
+   ```sh
+   API_BASE_URL=[your_api_base_url]
+   BEARER_TOKEN=[your_bearer_token]
+   MOVIE_IMAGE_BASE_URL=[your_movie_image_base_url]
+   MOVIE_POPULAR_URL=[your_movie_popular_url]
+   MOVIE_SEARCH_URL=[your_movie_search_url]
+   ```
+4. **Run the build runner:**
+   ```sh
+   dart run build_runner build --delete-conflicting-outputs
+   ```
+5. **Run the app:**
+   ```sh
+    flutter run
+    ```
 
 ## Dependencies
 
@@ -66,9 +102,15 @@ handling events and emitting states. Dependency injection is managed using `get_
 
 ## Code Generation
 
+This project uses `build_runner` for code generation. To generate code, run the following command:
+
+```sh
+dart run build_runner build --delete-conflicting-outputs
+```
+
 ## Trade-offs
 
-This project initially used Freezed for model generation. However, due to incompatibility issues
+This project initially used `Freezed` for model generation. However, due to incompatibility issues
 with the `bloc_test` dependency and the specific structure of the API response data, the decision
 was made to switch to `json_serializable`. `json_serializable` proved to be a better fit for
 handling the API's snake_case naming conventions and nullable fields, simplifying the data mapping
@@ -77,6 +119,19 @@ process. While Freezed offers powerful features like immutability and `copyWith`
 existing architecture.
 
 ## Testing
+
+This project includes unit tests and widget tests on each layer to ensure the app's functionality
+and reliability. The following packages are used for testing:
+
+- **`flutter_test`**: Provides a framework for writing tests in Flutter.
+- **`mockito`**: Used for creating mock objects in unit tests.
+- **`bloc_test`**: Provides utilities for testing BLoCs.
+
+To run the tests, use the following commands:
+
+```sh
+flutter test
+```
 
 ## API Source
 

@@ -30,19 +30,22 @@ class MovieDetailsPage extends StatelessWidget {
               width: double.maxFinite,
             ),
             Positioned(
-                top: 32,
-                left: 16,
-                right: 16,
-                child: buildCustomAppBar(context, movie.isFavorite, (value) {
-                  context
-                      .read<MovieListBloc>()
-                      .add(MovieListToggleFavorite(movie, value));
-                })),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: GradientContainer(child: buildMovieInfoAndButton(context)),
+              child: Column(
+                children: [
+                  buildCustomAppBar(context, movie.isFavorite, (value) {
+                    context
+                        .read<MovieListBloc>()
+                        .add(MovieListToggleFavorite(movie, value));
+                  }),
+                  Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SingleChildScrollView(
+                            child: GradientContainer(
+                                child: buildMovieInfoAndButton(context))),
+                      )),
+                ],
+              ),
             ),
           ],
         ),
@@ -93,9 +96,7 @@ class MovieDetailsPage extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .bodyLarge
-              ?.copyWith(color: Colors.white),
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
+              ?.copyWith(color: Colors.white)
         ),
         const SizedBox(
           height: 32,
@@ -110,33 +111,33 @@ class MovieDetailsPage extends StatelessWidget {
                     fontWeight: FontWeight.bold, color: Colors.white)),
           ),
         ),
-        const SizedBox(
-          height: 32,
-        )
       ],
     );
   }
 
   Widget buildCustomAppBar(
       BuildContext context, bool isFavorite, Function(bool) onFavoriteChanged) {
-    return Row(
-      children: [
-        IconButton(
-          icon: const Icon(
-            Icons.arrow_back_rounded,
-            color: AppConstants.primaryColor,
+    return Padding(
+      padding: const EdgeInsets.only(top: 32.0, left: 16.0, right: 16.0),
+      child: Row(
+        children: [
+          IconButton(
+            icon: const Icon(
+              Icons.arrow_back_rounded,
+              color: AppConstants.primaryColor,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        const Spacer(),
-        Visibility(
-          visible: showFavoriteButton,
-          child: FavoriteButton(
-              isFavorite: isFavorite, onFavoriteChanged: onFavoriteChanged),
-        )
-      ],
+          const Spacer(),
+          Visibility(
+            visible: showFavoriteButton,
+            child: FavoriteButton(
+                isFavorite: isFavorite, onFavoriteChanged: onFavoriteChanged),
+          )
+        ],
+      ),
     );
   }
 }
