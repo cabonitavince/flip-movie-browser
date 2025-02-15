@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:movie_browser/app/data/services/local_storage_service.dart';
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_event.dart';
 import 'package:movie_browser/app/presentation/blocs/search_movie/search_movie_bloc.dart';
@@ -9,8 +10,10 @@ import 'package:movie_browser/service_locator.dart';
 import 'package:movie_browser/themes/app_theme.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
   await dotenv.load(fileName: ".env");
+  await serviceLocator<LocalStorageService>().init();
   runApp(const MyApp());
 }
 

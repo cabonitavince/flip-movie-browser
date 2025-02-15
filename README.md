@@ -24,7 +24,7 @@ This project follows the Clean Architecture principles, separating concerns into
 - **Use Cases:** Encapsulate business logic and interact with repositories.
 - **Repositories:** Abstract interfaces for data access, implemented by data sources.
 - **Data:** Handle actual data fetching (API, database, etc.).
-- **Presentation (UI):**  Flutter widgets and BLoCs for state management.
+- **Presentation (UI):** Flutter widgets and BLoCs for state management.
 
 The BLoC pattern is used for state management in the UI layer. Each feature has its own BLoC,
 handling events and emitting states. Dependency injection is managed using `get_it`.
@@ -49,7 +49,7 @@ handling events and emitting states. Dependency injection is managed using `get_
   BLoC. [Official documentation](https://pub.dev/packages/flutter_bloc)
 - **`equatable: ^2.0.7`**: For simplifying equality checks in BLoC states and
   events. [Official documentation](https://pub.dev/packages/equatable)
-- **`logger: ^2.5.0`**:  For logging in the
+- **`logger: ^2.5.0`**: For logging in the
   application. [Official documentation](https://pub.dev/packages/logger)
 - **`mockito: ^5.4.5`**: For creating mocks in unit
   tests. [Official documentation](https://pub.dev/packages/mockito)
@@ -57,6 +57,12 @@ handling events and emitting states. Dependency injection is managed using `get_
   BLoCs. [Official documentation](https://pub.dev/packages/bloc_test)
 - **`cached_network_image: ^3.4.1`**: For displaying and caching images from the
   internet. [Official documentation](https://pub.dev/packages/cached_network_image)
+- **`hive: ^2.2.3`**: Lightweight and fast key-value
+  database. [Official documentation](https://pub.dev/packages/hive)
+- **`hive_flutter: ^1.1.0`**: Extension for Hive to work with
+  Flutter. [Official documentation](https://pub.dev/packages/hive_flutter)
+- **`hive_generator: ^2.0.1`**: Code generator for Hive type
+  adapters. [Official documentation](https://pub.dev/packages/hive_generator)
 
 ## Code Generation
 
@@ -64,7 +70,7 @@ handling events and emitting states. Dependency injection is managed using `get_
 
 This project initially used Freezed for model generation. However, due to incompatibility issues
 with the `bloc_test` dependency and the specific structure of the API response data, the decision
-was made to switch to `json_serializable`.  `json_serializable` proved to be a better fit for
+was made to switch to `json_serializable`. `json_serializable` proved to be a better fit for
 handling the API's snake_case naming conventions and nullable fields, simplifying the data mapping
 process. While Freezed offers powerful features like immutability and `copyWith`,
 `json_serializable` effectively addresses the project's current needs and integrates well with the

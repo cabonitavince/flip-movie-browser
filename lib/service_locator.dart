@@ -1,9 +1,12 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_browser/app/data/services/local_storage_service.dart';
 import 'package:movie_browser/app/data/services/movie_service.dart';
 import 'package:movie_browser/app/domain/repositories/movie_repository_impl.dart';
 import 'package:movie_browser/app/domain/repositories/movie_respository.dart';
+import 'package:movie_browser/app/domain/usecases/get_cached_movies_usecase.dart';
 import 'package:movie_browser/app/domain/usecases/get_popular_movies_usecase.dart';
+import 'package:movie_browser/app/domain/usecases/save_movies_to_cache_usecase.dart';
 import 'package:movie_browser/app/domain/usecases/search_movies_usecase.dart';
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movie_browser/app/presentation/blocs/search_movie/search_movie_bloc.dart';
@@ -23,6 +26,9 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton<MovieService>(
     () => MovieService(apiUtil: serviceLocator<ApiUtil>()),
   );
+  serviceLocator.registerLazySingleton<LocalStorageService>(
+    () => LocalStorageService(),
+  );
 
   // repositories
   serviceLocator.registerLazySingleton<MovieRepository>(
@@ -34,10 +40,16 @@ void setupServiceLocator() {
       () => GetPopularMoviesUseCase(serviceLocator<MovieRepository>()));
   serviceLocator.registerFactory(
       () => SearchMoviesUseCase(serviceLocator<MovieRepository>()));
+  serviceLocator.registerFactory(
+      () => GetCachedMoviesUseCase(serviceLocator<LocalStorageService>()));
+  serviceLocator.registerFactory(
+      () => SaveMoviesToCacheUseCase(serviceLocator<LocalStorageService>()));
 
   // blocs
-  serviceLocator.registerFactory(
-      () => MovieListBloc(serviceLocator<GetPopularMoviesUseCase>()));
+  serviceLocator.registerFactory(() => MovieListBloc(
+      serviceLocator<GetPopularMoviesUseCase>(),
+      serviceLocator<SaveMoviesToCacheUseCase>(),
+      serviceLocator<GetCachedMoviesUseCase>()));
   serviceLocator.registerFactory(
       () => SearchMovieBloc(serviceLocator<SearchMoviesUseCase>()));
 }

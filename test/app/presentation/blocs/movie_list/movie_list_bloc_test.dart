@@ -5,7 +5,9 @@ import 'package:mockito/mockito.dart';
 import 'package:movie_browser/app/domain/entities/movie/movie.dart';
 import 'package:movie_browser/app/domain/exceptions/network_exception.dart';
 import 'package:movie_browser/app/domain/exceptions/service_exception.dart';
+import 'package:movie_browser/app/domain/usecases/get_cached_movies_usecase.dart';
 import 'package:movie_browser/app/domain/usecases/get_popular_movies_usecase.dart';
+import 'package:movie_browser/app/domain/usecases/save_movies_to_cache_usecase.dart';
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_bloc.dart';
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_event.dart';
 import 'package:movie_browser/app/presentation/blocs/movie_list/movie_list_state.dart';
@@ -13,12 +15,17 @@ import 'package:movie_browser/core/enum/state_enum.dart';
 
 import 'movie_list_bloc_test.mocks.dart';
 
-@GenerateMocks([GetPopularMoviesUseCase])
+@GenerateMocks(
+    [GetPopularMoviesUseCase, SaveMoviesToCacheUseCase, GetCachedMoviesUseCase])
 void main() {
   late MockGetPopularMoviesUseCase mockGetPopularMoviesUseCase;
+  late MockSaveMoviesToCacheUseCase mockSaveMoviesToCacheUseCase;
+  late MockGetCachedMoviesUseCase mockGetCachedMoviesUseCase;
 
   setUp(() {
     mockGetPopularMoviesUseCase = MockGetPopularMoviesUseCase();
+    mockSaveMoviesToCacheUseCase = MockSaveMoviesToCacheUseCase();
+    mockGetCachedMoviesUseCase = MockGetCachedMoviesUseCase();
   });
 
   final tMovies = [Movie.mock()];
@@ -29,7 +36,8 @@ void main() {
       build: () {
         when(mockGetPopularMoviesUseCase.execute(language: 'en-US', page: 1))
             .thenAnswer((_) async => tMovies);
-        return MovieListBloc(mockGetPopularMoviesUseCase);
+        return MovieListBloc(mockGetPopularMoviesUseCase,
+            mockSaveMoviesToCacheUseCase, mockGetCachedMoviesUseCase);
       },
       act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
@@ -43,7 +51,8 @@ void main() {
       build: () {
         when(mockGetPopularMoviesUseCase.execute(language: 'en-US', page: 1))
             .thenAnswer((_) async => <Movie>[]);
-        return MovieListBloc(mockGetPopularMoviesUseCase);
+        return MovieListBloc(mockGetPopularMoviesUseCase,
+            mockSaveMoviesToCacheUseCase, mockGetCachedMoviesUseCase);
       },
       act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
@@ -53,17 +62,21 @@ void main() {
     );
 
     blocTest<MovieListBloc, MovieListState>(
-      'should emit loading and noInternet states when use case throws NetworkException',
+      'should emit loading and noInternet states when use case throws NetworkException and get cached movies',
       build: () {
         when(mockGetPopularMoviesUseCase.execute(language: 'en-US', page: 1))
             .thenThrow(NetworkException('No internet'));
-        return MovieListBloc(mockGetPopularMoviesUseCase);
+        when(mockGetCachedMoviesUseCase.execute())
+            .thenAnswer((_) async => tMovies);
+        return MovieListBloc(mockGetPopularMoviesUseCase,
+            mockSaveMoviesToCacheUseCase, mockGetCachedMoviesUseCase);
       },
       act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
         const MovieListState(status: StateEnum.loading),
-        const MovieListState(
+        MovieListState(
             status: StateEnum.noInternet,
+            movies: tMovies,
             errorMessage: 'No internet connection'),
       ],
     );
@@ -73,7 +86,8 @@ void main() {
       build: () {
         when(mockGetPopularMoviesUseCase.execute(language: 'en-US', page: 1))
             .thenThrow(ServiceException('Service Unavailable'));
-        return MovieListBloc(mockGetPopularMoviesUseCase);
+        return MovieListBloc(mockGetPopularMoviesUseCase,
+            mockSaveMoviesToCacheUseCase, mockGetCachedMoviesUseCase);
       },
       act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
@@ -88,7 +102,8 @@ void main() {
       build: () {
         when(mockGetPopularMoviesUseCase.execute(language: 'en-US', page: 1))
             .thenThrow(Exception('Something Went Wrong!'));
-        return MovieListBloc(mockGetPopularMoviesUseCase);
+        return MovieListBloc(mockGetPopularMoviesUseCase,
+            mockSaveMoviesToCacheUseCase, mockGetCachedMoviesUseCase);
       },
       act: (bloc) => bloc.add(const MovieListLoad()),
       expect: () => [
