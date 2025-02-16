@@ -4,12 +4,16 @@
 
 - [Introduction](#introduction)
 - [Architecture](#architecture)
+- [Package Abstraction](#package-abstraction)
+- [Responsiveness](#responsiveness)
+- [Dark and Light Theme Compatibility](#dark-and-light-theme-compatibility)
 - [Building and Running](#building-and-running)
 - [Dependencies](#dependencies)
 - [Code Generation](#code-generation)
 - [Trade-offs](#trade-offs)
 - [Testing](#testing)
 - [API Source](#api-source)
+- [Environment](#environment)
 
 ## Introduction
 
@@ -36,6 +40,43 @@ This project follows the Clean Architecture principles, separating concerns into
 
 The `BLoC pattern` is used for state management in the UI layer. Each feature has its own BLoC,
 handling events and emitting states. Dependency injection is managed using `get_it`.
+
+## Package Abstraction
+
+This project employs a wrapper pattern to abstract external dependencies, specifically the `http`
+package used for API communication. This abstraction layer provides an interface for making HTTP
+requests, decoupling the `Data` layer from the underlying HTTP client. This design choice enables
+seamless migration to alternative HTTP packages (e.g., `dio`, `chopper`) in the future, should the
+need arise. By implementing a new concrete class that conforms to the defined interface, the rest of
+the application remains unaffected, minimizing code changes and reducing the risk of introducing
+bugs. This promotes long-term maintainability and reduces technical debt.
+
+## Responsiveness
+
+The application is designed to be responsive across different screen sizes, from mobile phones to
+tablets. This is achieved through a combination of techniques:
+
+* **`LayoutBuilder`:**  Used to dynamically adjust the layout based on the available screen size and
+  orientation. This allows for different layouts to be displayed on mobile and tablet devices.
+* **`MediaQuery`:** Utilized to access device information such as screen size and orientation,
+  enabling adaptive UI elements.
+* **`Grid layouts`:** `ResponsiveGridViewBuilder` is a custom widget used to display movie posters
+  in a grid, which
+  automatically adjusts the number of columns based on the screen width.
+
+This approach ensures a consistent and user-friendly experience across a range of devices.
+
+## Dark and Light Theme Compatibility
+
+The application supports both dark and light themes to provide a consistent user experience across
+different device settings. This is achieved through:
+
+* **`AppTheme`:** Custom themes defined for both light and dark modes.
+* **`ThemeMode.system`:** Automatically switches between dark and light themes based on the system
+  settings.
+
+This approach ensures a consistent and user-friendly experience across a range of devices and user
+preferences.
 
 ## Building and Running
 
@@ -136,3 +177,8 @@ flutter test
 ## API Source
 
 This app uses the [TMDB API](https://www.themoviedb.org/) to fetch movie data.
+
+## Environment
+
+- **Flutter version:** 3.27.4 (stable)
+- **Dart version:**  3.6.2 (stable)
